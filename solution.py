@@ -175,23 +175,24 @@ while True:
                         item = groceries[i]
                         print(f'{i}: {item}: ✔️')
             elif menu_choice == 2:
-                stat_update = int(input('Update the status of which index? '))
-                # Prompt the user for the new item
-                new_status = not completed[stat_update]
-                # - replace the item at that index with the new item
-                completed[stat_update] = new_status
+                try:
+                    stat_update = int(input('Update the status of which index? '))
+                    # Prompt the user for the new item
+                    new_status = not completed[stat_update]
+                    # - replace the item at that index with the new item
+                    completed[stat_update] = new_status
+                except IndexError:
+                    pass
             elif menu_choice == 3:
-                # Give them the chance to replace 
-                start_index = int(input('Update the status starting where? '))
-                endex = int(input('Update the status ending where? '))
-                # gather replacements
-                revised_completed = []
-                counter = endex - start_index
-                while 0 <= counter:
-                    new_item = not completed[counter]
-                    revised_completed.append(new_item)
-                    counter -= 1
-                completed[start_index:endex] = revised_completed
+                try:
+                    start_index = int(input('Update the status starting where? '))
+                    endex = int(input('Update the status ending where? '))
+                    while start_index <= endex:
+                        new_status = not completed[start_index]
+                        completed[start_index] = new_status
+                        start_index += 1
+                except IndexError:
+                    pass
             else:
                 break
     if menu_choice == 6:

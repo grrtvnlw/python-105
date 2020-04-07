@@ -116,27 +116,36 @@ while True:
                         item = groceries[i]
                         print(f'{i}: {item}: ✔️')
             elif menu_choice == 2:
-                index_to_replace = int(input('What index to replace? '))
-                # Prompt the user for the new item
-                new_item = input('What is the new item? ')
-                # - replace the item at that index with the new item
-                groceries[index_to_replace] = new_item
-                completed[index_to_replace] = False
+                try:
+                    index_to_replace = int(input('What index to replace? '))
+                    # Prompt the user for the new item
+                    new_item = input('What is the new item? ')
+                    # - replace the item at that index with the new item
+                    groceries[index_to_replace] = new_item
+                    completed[index_to_replace] = False
+                except IndexError:
+                    # - replace the item at that index with the new item
+                    groceries.append(new_item)
+                    completed.append(False)
             elif menu_choice == 3:
-                # Give them the chance to replace 
-                start_index_to_replace = int(input('What start index to replace? '))
-                end_index_to_replace = int(input('What end index to replace? '))
-                # gather replacements
-                replacements = []
-                revised_completed = []
-                while True:
-                    new_item = input('What is the new item? (press Enter when finished) ')
-                    if new_item == '':
-                        break
-                    replacements.append(new_item)
-                    revised_completed.append(False)
-                    groceries[start_index_to_replace:end_index_to_replace] = replacements
-                    completed[start_index_to_replace:end_index_to_replace] = revised_completed
+                # Give them the chance to replace
+                try:
+                    start_index_to_replace = int(input('What start index to replace? '))
+                    end_index_to_replace = int(input('What end index to replace? '))
+                    # gather replacements
+                    replacements = []
+                    revised_completed = []
+                    while True:
+                        new_item = input('What is the new item? (press Enter when finished) ')
+                        if new_item == '':
+                            break
+                        replacements.append(new_item)
+                        revised_completed.append(False)
+                        groceries[start_index_to_replace:end_index_to_replace] = replacements
+                        completed[start_index_to_replace:end_index_to_replace] = revised_completed
+                except IndexError:
+                    groceries.append(new_item)
+                    completed.append(False)
             else:
                 break
     elif menu_choice == 4:
@@ -153,14 +162,20 @@ while True:
                         item = groceries[i]
                         print(f'{i}: {item}: ✔️')
             elif menu_choice == 2:
-                del_index = int(input('What index number should we remove? '))
-                del groceries[del_index]
-                del completed[del_index]
+                try:
+                    del_index = int(input('What index number should we remove? '))
+                    del groceries[del_index]
+                    del completed[del_index]
+                except IndexError:
+                    pass
             elif menu_choice == 3:
-                start_index = int(input('What is the starting index of the item you want to remove? '))
-                endex = int(input('What is the ending index of the item you want to remove? '))
-                del groceries[start_index:endex]
-                del completed[start_index:endex]
+                try:
+                    start_index = int(input('What is the starting index of the item you want to remove? '))
+                    endex = int(input('What is the ending index of the item you want to remove? '))
+                    del groceries[start_index:endex]
+                    del completed[start_index:endex]
+                except IndexError:
+                    pass
             elif menu_choice == 4:
                 break
     elif menu_choice == 5:

@@ -155,12 +155,10 @@ while True:
             elif menu_choice == 2:
                 del_index = int(input('What index number should we remove? '))
                 del groceries[del_index]
-                del completed[del_index]
             elif menu_choice == 3:
                 start_index = int(input('What is the starting index of the item you want to remove? '))
                 endex = int(input('What is the ending index of the item you want to remove? '))
                 del groceries[start_index:endex]
-                del completed[start_index:endex]
             elif menu_choice == 4:
                 break
     elif menu_choice == 5:
@@ -177,24 +175,19 @@ while True:
                         item = groceries[i]
                         print(f'{i}: {item}: ✔️')
             elif menu_choice == 2:
-                try:
-                    stat_update = int(input('Update the status of which index? '))
-                    # Prompt the user for the new item
-                    new_status = not completed[stat_update]
-                    # - replace the item at that index with the new item
-                    completed[stat_update] = new_status
-                except IndexError:
-                    pass
+                stat_update = int(input('Update the status of which index? '))
+                # Prompt the user for the new item
+                new_status = not completed[stat_update]
+                # - replace the item at that index with the new item
+                completed[stat_update] = new_status
             elif menu_choice == 3:
-                try:
-                    start_index = int(input('Update the status starting where? '))
-                    endex = int(input('Update the status ending where? '))
-                    while start_index <= endex:
-                        new_status = not completed[start_index]
-                        completed[start_index] = new_status
-                        start_index += 1
-                except IndexError:
-                    pass
+                # Give them the chance to replace 
+                start_index = int(input('Update the status starting where? '))
+                endex = int(input('Update the status ending where? '))
+                while start_index <= endex:
+                    new_status = not completed[start_index]
+                    completed[start_index] = new_status
+                    start_index += 1
             else:
                 break
     if menu_choice == 6:
